@@ -17,305 +17,243 @@ export const blogPosts: BlogPost[] = [
       "Reflexoes sobre os primeiros passos na area de engenharia de software, desafios iniciais e como construir uma base solida de conhecimento tecnico.",
     category: "Carreira",
     readingTime: "5 min",
-    content: `
-# Comecando com Engenharia de Software
+    content: `# Comecando com Engenharia de Software
 
-A jornada na engenharia de software comeca com curiosidade. Nao existe um caminho unico, mas existem fundamentos que todo desenvolvedor precisa dominar.
+A transicao para a area de engenharia de software pode parecer intimidadora no inicio. Sao tantas tecnologias, frameworks e conceitos que e facil se sentir perdido. No entanto, a chave esta em construir uma base solida e ir avancando passo a passo.
 
-## Os Fundamentos
+## Fundamentos sao a base de tudo
 
-Antes de mergulhar em frameworks e ferramentas, e essencial entender os conceitos basicos:
+Antes de pular para o framework da moda, invista tempo entendendo os fundamentos: como a web funciona, o protocolo HTTP, estruturas de dados e algoritmos basicos. Esse conhecimento vai te diferenciar a longo prazo.
 
-- **Logica de programacao**: A base de tudo. Sem ela, qualquer linguagem se torna um obstaculo.
-- **Estruturas de dados**: Arrays, listas, arvores, grafos — saber quando usar cada uma faz toda a diferenca.
-- **Algoritmos**: Nao apenas para entrevistas, mas para resolver problemas reais de forma eficiente.
+> "A diferenca entre um programador junior e um senior nao esta no framework que ele domina, mas na profundidade com que entende os fundamentos."
 
-## Escolhendo sua primeira linguagem
+## Construindo seu primeiro projeto
 
-Nao existe linguagem perfeita para comecar. Python e otimo pela simplicidade. JavaScript pela versatilidade. O importante e comecar e ser consistente.
+A melhor maneira de aprender e construindo. Escolha um projeto simples e leve ate o fim:
 
-## Construindo projetos
+- Defina um escopo pequeno e realista
+- Use controle de versao desde o inicio com **Git**
+- Documente suas decisoes tecnicas
+- Nao tenha medo de errar e refatorar
 
-A teoria sem pratica e incompleta. Comece com projetos pequenos:
+## Ferramentas essenciais
 
-1. Um to-do list simples
-2. Um conversor de unidades
-3. Uma calculadora
-4. Um blog pessoal (como este!)
+Para comecar, voce vai precisar de poucas ferramentas:
 
-## O papel da comunidade
+1. Um editor de codigo como o **VS Code**
+2. **Git** para controle de versao
+3. Um terminal confortavel
+4. Acesso ao **GitHub** para compartilhar seu codigo
 
-Participar de comunidades tech, contribuir com open source e compartilhar seu aprendizado acelera muito a evolucao. Nao tenha medo de mostrar codigo imperfeito — todos comecaram assim.
+## Exemplo de configuracao inicial
 
-> "O melhor momento para comecar foi ontem. O segundo melhor e agora."
+\`\`\`bash
+git init meu-projeto
+cd meu-projeto
+npm init -y
+\`\`\`
 
-Continue aprendendo, continue construindo.
-    `,
+O importante e comecar. Nao espere estar "pronto" para construir algo. Voce aprende fazendo, errando e melhorando. Cada linha de codigo escrita e um passo a frente na sua jornada.`,
   },
   {
-    slug: "ciberseguranca-para-desenvolvedores",
-    title: "Ciberseguranca para Desenvolvedores",
+    slug: "seguranca-em-aplicacoes-web",
+    title: "Seguranca em Aplicacoes Web: O Basico que Todo Dev Precisa Saber",
     date: "2025-11-28",
     excerpt:
-      "Por que todo desenvolvedor deveria entender os fundamentos de ciberseguranca e como isso impacta a qualidade do codigo que produzimos.",
+      "Uma introducao pratica aos conceitos fundamentais de seguranca em aplicacoes web, incluindo OWASP Top 10, sanitizacao de inputs e autenticacao segura.",
     category: "Seguranca",
     readingTime: "7 min",
-    content: `
-# Ciberseguranca para Desenvolvedores
+    content: `# Seguranca em Aplicacoes Web
 
-Seguranca nao e apenas responsabilidade de um time especializado. Todo desenvolvedor precisa pensar em seguranca desde a primeira linha de codigo.
+Seguranca nao e um recurso opcional. E uma responsabilidade que todo desenvolvedor deve levar a serio desde o primeiro commit. Neste artigo, vamos explorar os conceitos basicos que todo dev precisa conhecer.
 
 ## OWASP Top 10
 
-O OWASP Top 10 e a referencia principal para vulnerabilidades web:
+O OWASP Top 10 e uma lista das vulnerabilidades mais criticas em aplicacoes web. Conhece-las e o primeiro passo para escrever codigo mais seguro:
 
-1. **Broken Access Control** — Garantir que usuarios so acessem o que devem
-2. **Cryptographic Failures** — Proteger dados sensiveis adequadamente
-3. **Injection** — SQL Injection, XSS e outras formas de injecao
-4. **Insecure Design** — Falhas arquiteturais que comprometem a seguranca
+- **Injection** - SQL, NoSQL, OS command injection
+- **Broken Authentication** - Falhas em autenticacao e sessoes
+- **Sensitive Data Exposure** - Dados sensiveis sem criptografia
+- **XSS (Cross-Site Scripting)** - Scripts maliciosos injetados no browser
 
-## Praticas essenciais
+## Sanitizacao de Inputs
 
-- Sempre validar input do usuario no servidor
-- Usar prepared statements para queries SQL
-- Implementar autenticacao e autorizacao robustas
-- Manter dependencias atualizadas
-- Nunca armazenar senhas em texto puro
+Nunca confie em dados que vem do usuario. Sempre valide e sanitize:
 
-## Ferramentas uteis
+\`\`\`typescript
+// Nunca faca isso
+const query = \`SELECT * FROM users WHERE id = \${userId}\`
 
-Existem diversas ferramentas que ajudam a identificar vulnerabilidades:
+// Faca isso
+const query = \`SELECT * FROM users WHERE id = $1\`
+const result = await db.query(query, [userId])
+\`\`\`
 
-- **SAST** (Static Application Security Testing): Analisa o codigo fonte
-- **DAST** (Dynamic Application Security Testing): Testa a aplicacao em execucao
-- **SCA** (Software Composition Analysis): Verifica vulnerabilidades em dependencias
+## Autenticacao Segura
 
-## Conclusao
+Algumas praticas essenciais para autenticacao:
 
-Seguranca e um investimento, nao um custo. Codigo seguro e codigo de qualidade.
-    `,
+1. Nunca armazene senhas em texto puro - use **bcrypt** ou **argon2**
+2. Implemente rate limiting para prevenir forca bruta
+3. Use tokens **JWT** com expiracao curta
+4. Sempre use **HTTPS** em producao
+
+> "A seguranca de uma aplicacao e tao forte quanto seu elo mais fraco."
+
+Investir em seguranca desde o inicio do projeto e muito mais barato do que remediar uma brecha depois. Faca disso um habito, nao uma tarefa pendente.`,
   },
   {
-    slug: "next-js-e-o-futuro-do-frontend",
-    title: "Next.js e o Futuro do Frontend",
+    slug: "produtividade-para-desenvolvedores",
+    title: "Produtividade para Desenvolvedores: Habitos e Ferramentas",
     date: "2025-11-10",
     excerpt:
-      "Uma analise sobre como o Next.js esta moldando o desenvolvimento frontend moderno com Server Components, App Router e otimizacoes automaticas.",
-    category: "Tecnologia",
-    readingTime: "6 min",
-    content: `
-# Next.js e o Futuro do Frontend
-
-O Next.js se consolidou como um dos frameworks mais influentes do ecossistema React. Com a introducao do App Router e Server Components, o paradigma de desenvolvimento web mudou significativamente.
-
-## Server Components
-
-Server Components permitem renderizar componentes no servidor, reduzindo o JavaScript enviado ao cliente:
-
-- Acesso direto ao banco de dados
-- Reducao do bundle size
-- Melhor performance inicial
-
-## App Router
-
-O App Router trouxe uma nova forma de organizar rotas:
-
-- Layouts aninhados
-- Loading states nativos
-- Error boundaries por rota
-- Streaming de componentes
-
-## Otimizacoes automaticas
-
-O Next.js otimiza automaticamente:
-
-- **Imagens**: Componente Image com lazy loading e formatos modernos
-- **Fontes**: Otimizacao de fontes do Google sem layout shift
-- **Scripts**: Carregamento inteligente de scripts de terceiros
-
-## Quando usar Next.js?
-
-Next.js e ideal para:
-
-- Sites com necessidade de SEO
-- Aplicacoes que precisam de SSR ou SSG
-- Projetos que se beneficiam de code splitting automatico
-- Times que querem produtividade com convencoes bem definidas
-
-## Conclusao
-
-O Next.js continua evoluindo rapidamente. Acompanhar suas atualizacoes e essencial para qualquer desenvolvedor frontend.
-    `,
-  },
-  {
-    slug: "git-alem-do-basico",
-    title: "Git: Alem do Basico",
-    date: "2025-10-22",
-    excerpt:
-      "Comandos e estrategias avancadas de Git que todo desenvolvedor deveria conhecer para um fluxo de trabalho mais eficiente.",
-    category: "Ferramentas",
-    readingTime: "8 min",
-    content: `
-# Git: Alem do Basico
-
-Todo desenvolvedor sabe fazer commit, push e pull. Mas Git oferece muito mais do que isso.
-
-## Rebase interativo
-
-O rebase interativo permite reescrever o historico de commits:
-
-\`\`\`bash
-git rebase -i HEAD~5
-\`\`\`
-
-Isso abre um editor onde voce pode:
-- **pick**: manter o commit
-- **squash**: combinar com o commit anterior
-- **reword**: alterar a mensagem
-- **edit**: modificar o commit
-- **drop**: remover o commit
-
-## Git Bisect
-
-Encontrar o commit que introduziu um bug:
-
-\`\`\`bash
-git bisect start
-git bisect bad          # commit atual tem o bug
-git bisect good abc123  # commit sem o bug
-\`\`\`
-
-O Git faz uma busca binaria pelos commits para encontrar exatamente onde o problema comecou.
-
-## Stash avancado
-
-Alem do basico \`git stash\`:
-
-\`\`\`bash
-git stash save "mensagem descritiva"
-git stash list
-git stash apply stash@{2}
-git stash branch nova-branch
-\`\`\`
-
-## Hooks
-
-Git hooks automatizam tarefas:
-
-- **pre-commit**: Rodar linter antes de cada commit
-- **commit-msg**: Validar formato da mensagem
-- **pre-push**: Rodar testes antes de enviar
-
-## Conclusao
-
-Dominar Git vai alem de saber os comandos basicos. E sobre entender o modelo de dados e usar as ferramentas certas para cada situacao.
-    `,
-  },
-  {
-    slug: "produtividade-para-devs",
-    title: "Produtividade para Devs",
-    date: "2025-10-05",
-    excerpt:
-      "Tecnicas e ferramentas que me ajudam a manter o foco e a produtividade no dia a dia como desenvolvedor de software.",
+      "Dicas praticas de produtividade para desenvolvedores, desde gerenciamento de tempo ate automacoes e atalhos que fazem a diferenca no dia a dia.",
     category: "Produtividade",
     readingTime: "4 min",
-    content: `
-# Produtividade para Devs
+    content: `# Produtividade para Desenvolvedores
 
-Ser produtivo nao e trabalhar mais horas, e trabalhar de forma mais inteligente.
+Ser produtivo nao significa trabalhar mais horas. Significa trabalhar de forma mais inteligente, eliminando friccoes e focando no que realmente importa.
 
-## Tecnica Pomodoro adaptada
+## Gerenciamento de Tempo
 
-A tecnica classica de 25 min trabalho / 5 min pausa funciona, mas para programacao eu prefiro:
+A tecnica mais eficiente que encontrei e uma variacao do Pomodoro:
 
-- **50 min** de foco intenso
-- **10 min** de pausa real (longe da tela)
-- Apos 3 ciclos, pausa longa de 30 min
+- **50 minutos** de foco profundo
+- **10 minutos** de pausa real (longe da tela)
+- A cada 3 ciclos, uma pausa mais longa de **20 minutos**
 
-## Ambiente de trabalho
+## Atalhos que Fazem a Diferenca
 
-- Editor configurado com atalhos personalizados
-- Terminal com aliases para comandos frequentes
-- Segundo monitor para documentacao
-- Fones com cancelamento de ruido
+No VS Code, esses atalhos vao mudar seu fluxo:
 
-## Gerenciamento de tarefas
+1. \`Ctrl+P\` para buscar arquivos rapidamente
+2. \`Ctrl+Shift+P\` para a paleta de comandos
+3. \`Ctrl+D\` para selecionar multiplas ocorrencias
+4. \`Alt+Shift+F\` para formatar o documento
 
-- Quebrar tarefas grandes em subtarefas de no maximo 2 horas
-- Usar a regra dos 2 minutos: se leva menos que 2 min, faca agora
-- Manter um "parking lot" para ideias que surgem durante o foco
+## Automacoes Essenciais
 
-## Deep Work
+Automatize tudo que e repetitivo:
 
-O conceito de Cal Newport e essencial:
-
-- Bloquear periodos de foco no calendario
-- Desativar notificacoes durante deep work
-- Comunicar ao time seus horarios de foco
-
-## Conclusao
-
-Produtividade e um habito, nao um destino. Experimente diferentes tecnicas e encontre o que funciona para voce.
-    `,
-  },
-  {
-    slug: "api-rest-boas-praticas",
-    title: "API REST: Boas Praticas",
-    date: "2025-09-18",
-    excerpt:
-      "Um guia pratico sobre como projetar APIs RESTful seguindo padroes da industria, com exemplos reais e dicas de versionamento.",
-    category: "Backend",
-    readingTime: "10 min",
-    content: `
-# API REST: Boas Praticas
-
-Projetar uma boa API REST e uma habilidade fundamental para qualquer desenvolvedor backend.
-
-## Nomenclatura de endpoints
-
-- Usar substantivos no plural: \`/users\`, \`/posts\`, \`/comments\`
-- Evitar verbos nos endpoints: \`GET /users\` em vez de \`GET /getUsers\`
-- Usar kebab-case: \`/user-profiles\` em vez de \`/userProfiles\`
-
-## Codigos de status HTTP
-
-Usar os codigos corretos:
-
-- **200**: Sucesso
-- **201**: Recurso criado
-- **204**: Sucesso sem conteudo
-- **400**: Erro do cliente
-- **401**: Nao autenticado
-- **403**: Nao autorizado
-- **404**: Nao encontrado
-- **500**: Erro do servidor
-
-## Versionamento
-
-Duas abordagens principais:
-
-1. **URL**: \`/api/v1/users\`
-2. **Header**: \`Accept: application/vnd.api.v1+json\`
-
-## Paginacao
-
-Para listas grandes, sempre implementar paginacao:
-
-\`\`\`json
-{
-  "data": [...],
-  "meta": {
-    "page": 1,
-    "per_page": 20,
-    "total": 150
-  }
-}
+\`\`\`bash
+# Alias para git no seu .bashrc
+alias gs="git status"
+alias gc="git commit -m"
+alias gp="git push origin"
 \`\`\`
 
-## Conclusao
+> "A melhor otimizacao e eliminar o trabalho desnecessario."
 
-Uma API bem projetada e mais facil de manter, documentar e consumir. Invista tempo no design antes de comecar a implementar.
-    `,
+O segredo da produtividade a longo prazo e consistencia. Pequenos habitos diarios geram resultados exponenciais ao longo do tempo.`,
+  },
+  {
+    slug: "introducao-ao-backend-com-nodejs",
+    title: "Introducao ao Backend com Node.js",
+    date: "2025-10-22",
+    excerpt:
+      "Um guia pratico para quem esta comecando no desenvolvimento backend com Node.js, cobrindo conceitos fundamentais, Express e boas praticas.",
+    category: "Backend",
+    readingTime: "6 min",
+    content: `# Introducao ao Backend com Node.js
+
+Node.js revolucionou o desenvolvimento web ao permitir que JavaScript rodasse no servidor. Se voce ja conhece JavaScript do frontend, a transicao para o backend se torna muito mais natural.
+
+## Por que Node.js?
+
+- **JavaScript em todo lugar** - mesma linguagem no front e backend
+- **Event-driven e non-blocking** - excelente para I/O
+- **NPM** - o maior ecossistema de pacotes do mundo
+- **Comunidade ativa** - documentacao e suporte abundantes
+
+## Seu primeiro servidor
+
+\`\`\`javascript
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Hello, World!' })
+})
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000')
+})
+\`\`\`
+
+## Estrutura de Projeto Recomendada
+
+Para projetos maiores, organize seu codigo:
+
+- \`/src\` - Codigo fonte principal
+- \`/src/routes\` - Definicao de rotas
+- \`/src/controllers\` - Logica de negocio
+- \`/src/models\` - Modelos de dados
+- \`/src/middleware\` - Middlewares customizados
+
+## Boas Praticas
+
+1. Use **variaveis de ambiente** para configuracoes sensiveis
+2. Implemente **tratamento de erros** centralizado
+3. Adicione **logs estruturados** para debugging
+4. Escreva **testes** desde o inicio
+
+> "Codigo limpo no backend e a fundacao de uma aplicacao escalavel."
+
+Node.js e uma excelente porta de entrada para o mundo do backend. Comece simples, entenda os conceitos e va evoluindo gradualmente.`,
+  },
+  {
+    slug: "ferramentas-essenciais-2025",
+    title: "Ferramentas Essenciais para Desenvolvedores em 2025",
+    date: "2025-10-05",
+    excerpt:
+      "Uma curadoria das ferramentas mais uteis para desenvolvedores em 2025, desde editores e terminais ate servicos de deploy e monitoramento.",
+    category: "Ferramentas",
+    readingTime: "5 min",
+    content: `# Ferramentas Essenciais para Desenvolvedores em 2025
+
+O ecossistema de ferramentas para desenvolvedores evolui rapidamente. Aqui esta minha selecao das ferramentas que mais impactam a produtividade no dia a dia.
+
+## Editor e Terminal
+
+- **VS Code** continua sendo o editor mais versatil
+- **Warp** ou **Alacritty** para um terminal moderno e rapido
+- **Starship** para um prompt bonito e informativo
+
+## Controle de Versao e CI/CD
+
+- **GitHub** para repositorios e code review
+- **GitHub Actions** para CI/CD automatizado
+- **Conventional Commits** para historico de commits legivel
+
+## Deploy e Infraestrutura
+
+1. **Vercel** para frontend e full-stack Next.js
+2. **Railway** ou **Fly.io** para backends
+3. **Supabase** para banco de dados e autenticacao
+4. **Cloudflare** para CDN e Workers
+
+## Monitoramento
+
+\`\`\`yaml
+# Exemplo de stack de monitoramento
+monitoring:
+  logs: Axiom
+  errors: Sentry
+  uptime: BetterStack
+  analytics: Plausible
+\`\`\`
+
+## IA como Copiloto
+
+A inteligencia artificial se tornou parte integral do fluxo de trabalho:
+
+- **GitHub Copilot** para sugestoes de codigo
+- **ChatGPT / Claude** para debugging e aprendizado
+- **v0** para prototipagem rapida de UI
+
+> "As melhores ferramentas sao aquelas que desaparecem do caminho e deixam voce focar no problema."
+
+Escolha ferramentas que se adequem ao seu fluxo. Nao adote algo so porque e popular - adote porque resolve um problema real no seu dia a dia.`,
   },
 ]
 
@@ -330,10 +268,13 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 }
 
 export function formatDate(dateString: string): string {
-  const date = new Date(dateString)
-  return date.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  })
+  // Parse date parts directly from the YYYY-MM-DD string to avoid
+  // timezone discrepancies between server and client (hydration mismatch).
+  const [year, month, day] = dateString.split("-")
+  const months = [
+    "jan", "fev", "mar", "abr", "mai", "jun",
+    "jul", "ago", "set", "out", "nov", "dez",
+  ]
+  const monthIndex = parseInt(month, 10) - 1
+  return `${day} de ${months[monthIndex]}. de ${year}`
 }

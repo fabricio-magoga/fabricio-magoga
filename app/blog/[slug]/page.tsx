@@ -138,7 +138,7 @@ function MarkdownRenderer({
         listItems.push(
           <li key={i} className="flex gap-2">
             <span className="opacity-40 shrink-0">-</span>
-            <span>{renderInlineFormatting(text)}</span>
+            <span>{renderInlineFormatting(text, isDarkMode)}</span>
           </li>
         )
         i++
@@ -163,7 +163,7 @@ function MarkdownRenderer({
         listItems.push(
           <li key={i} className="flex gap-2">
             <span className="opacity-40 shrink-0">{num}.</span>
-            <span>{renderInlineFormatting(text)}</span>
+            <span>{renderInlineFormatting(text, isDarkMode)}</span>
           </li>
         )
         i++
@@ -185,7 +185,7 @@ function MarkdownRenderer({
         key={i}
         className="text-xs sm:text-sm opacity-70 leading-relaxed my-3"
       >
-        {renderInlineFormatting(line)}
+        {renderInlineFormatting(line, isDarkMode)}
       </p>
     )
     i++
@@ -194,7 +194,7 @@ function MarkdownRenderer({
   return <div>{elements}</div>
 }
 
-function renderInlineFormatting(text: string): React.ReactNode {
+function renderInlineFormatting(text: string, isDark?: boolean): React.ReactNode {
   // Handle bold, inline code, etc.
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g)
   return parts.map((part, idx) => {
@@ -209,7 +209,9 @@ function renderInlineFormatting(text: string): React.ReactNode {
       return (
         <code
           key={idx}
-          className="text-[11px] sm:text-xs px-1.5 py-0.5 rounded-sm bg-current/5"
+          className={`text-[11px] sm:text-xs px-1.5 py-0.5 rounded-sm ${
+            isDark ? "bg-white/10" : "bg-black/5"
+          }`}
         >
           {part.slice(1, -1)}
         </code>
@@ -347,7 +349,7 @@ export default function BlogPostPage() {
         </nav>
 
         {/* Footer */}
-        <footer className="mt-10 pt-6 border-t border-current/10">
+        <footer className={`mt-10 pt-6 border-t ${isDarkMode ? "border-white/10" : "border-black/10"}`}>
           <div className="flex items-center justify-between text-xs opacity-40">
             <Link
               href="/"

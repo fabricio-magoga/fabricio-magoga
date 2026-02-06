@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Últimas atualizações",
   description:
-    "Artigos sobre engenharia de software, ciberseguranca, produtividade e carreira em tecnologia.",
+    "FABRICIO MAGOGA BLOG",
 }
 
 export default function BlogLayout({

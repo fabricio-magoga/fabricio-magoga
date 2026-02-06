@@ -19,9 +19,8 @@ export default function BlogPage() {
 
   return (
     <div
-      className={`min-h-screen font-mono transition-colors ${
-        isDarkMode ? "bg-black text-white" : "bg-white text-black"
-      }`}
+      className={`min-h-screen font-mono transition-colors ${isDarkMode ? "bg-black text-white" : "bg-white text-black"
+        }`}
     >
       <div className="mx-auto max-w-2xl px-5 sm:px-8 py-8 sm:py-14">
         <BlogHeader
@@ -31,7 +30,10 @@ export default function BlogPage() {
 
         {/* Title */}
         <div className="mb-8 sm:mb-10">
-          <h1 className="text-lg sm:text-xl font-normal mb-2">BLOG</h1>
+          <p className="text-xs sm:text-sm opacity-50 leading-relaxed max-w-md">
+            FABRICIO MAGOGA BLOG
+          </p>
+          <h1 className="text-lg sm:text-xl font-normal mb-2">Últimas Atualizações</h1>
           <p className="text-xs sm:text-sm opacity-50 leading-relaxed max-w-md">
             Artigos sobre engenharia de software, seguranca, produtividade e carreira em tecnologia.
           </p>
@@ -44,15 +46,14 @@ export default function BlogPage() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`text-[10px] sm:text-xs uppercase tracking-widest px-3 py-1.5 rounded-sm transition-all ${
-                  activeCategory === cat
-                    ? isDarkMode
-                      ? "bg-white text-black"
-                      : "bg-black text-white"
-                    : isDarkMode
-                      ? "bg-white/5 text-white/60 hover:bg-white/10"
-                      : "bg-black/5 text-black/60 hover:bg-black/10"
-                }`}
+                className={`text-[10px] sm:text-xs uppercase tracking-widest px-3 py-1.5 rounded-sm transition-all ${activeCategory === cat
+                  ? isDarkMode
+                    ? "bg-white text-black"
+                    : "bg-black text-white"
+                  : isDarkMode
+                    ? "bg-white/5 text-white/60 hover:bg-white/10"
+                    : "bg-black/5 text-black/60 hover:bg-black/10"
+                  }`}
               >
                 {cat}
               </button>
@@ -78,7 +79,7 @@ export default function BlogPage() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-12 pt-6 border-t border-current/10">
+        <footer className={`mt-12 pt-6 border-t ${isDarkMode ? "border-white/10" : "border-black/10"}`}>
           <div className="flex items-center justify-between text-xs opacity-40">
             <a href="/" className="hover:opacity-80 transition-opacity">
               fabriciomagoga.com.br
