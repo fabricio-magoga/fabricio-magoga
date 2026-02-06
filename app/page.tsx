@@ -3,146 +3,133 @@
 import { Dithering } from "@paper-design/shaders-react";
 import { useState } from "react";
 
+function ThemeToggle({
+  isDarkMode,
+  onToggle,
+}: {
+  isDarkMode: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      onClick={onToggle}
+      className={`p-2 rounded-full transition-colors ${
+        isDarkMode ? "hover:bg-white/10" : "hover:bg-black/10"
+      }`}
+      aria-label="Toggle theme"
+    >
+      {isDarkMode ? (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+      ) : (
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+function SectionEntry({
+  date,
+  title,
+  org,
+  href,
+}: {
+  date: string;
+  title: string;
+  org?: string;
+  href?: string;
+}) {
+  const titleContent = href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:underline"
+    >
+      {title}
+    </a>
+  ) : (
+    <span>{title}</span>
+  );
+
+  return (
+    <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-0 pl-4 sm:pl-0">
+      <span className="text-xs sm:text-sm opacity-60 sm:mx-4 shrink-0">
+        {date}
+      </span>
+      <span className="text-sm sm:text-base sm:mx-2">{titleContent}</span>
+      {org && (
+        <span className="text-xs sm:text-sm opacity-60">{"@ " + org}</span>
+      )}
+    </div>
+  );
+}
+
+function FooterLinks() {
+  const links = [
+    { label: "Blog", href: "blog" },
+    {
+      label: "Github",
+      href: "https://github.com/fabricio-magoga",
+      external: true,
+    },
+    {
+      label: "Email",
+      href: "mailto:contato.fabriciomagoga@gmail.com",
+      external: true,
+    },
+    {
+      label: "Linkedin",
+      href: "https://www.linkedin.com/in/fabriciomagoga/",
+      external: true,
+    },
+  ];
+
+  return (
+    <nav aria-label="Social links">
+      <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm sm:text-base font-mono">
+        {links.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            {...(link.external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+            className="hover:underline"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex">
-      <div
-        className={`w-1/2 p-8 font-mono relative z-10 ${isDarkMode ? "bg-black text-white" : "bg-white text-black"}`}
-      >
-        {/* Theme toggle button in top right of left panel */}
-        <button
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className={`absolute top-8 right-8 p-2 rounded-full transition-colors ${
-            isDarkMode ? "hover:bg-white/10" : "hover:bg-black/10"
-          }`}
-          aria-label="Toggle theme"
-        >
-          {isDarkMode ? (
-            // Sun icon for light mode
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="12" r="5" />
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-            </svg>
-          ) : (
-            // Moon icon for dark mode
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          )}
-        </button>
-
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-lg font-normal mb-8">fabriciomagoga.com.br</h1>
-          <div className="mb-8">
-            <h2 className="text-lg font-normal">FABRICIO MAGOGA</h2>
-            <h3 className="text-lg font-normal">SOFTWARE ENGINEER</h3>
-          </div>
-        </div>
-
-        {/* Experience Section */}
-        <div className="mb-12 space-y-1">
-          <span>Experience</span>
-          <div className="flex bg-white-200">
-            <span className="mx-4">Oct 2025 → Present</span>
-            <span className="mx-2">IT Intern</span>
-            <span className="w-200">@ INSS</span>
-          </div>
-        </div>
-
-        {/* Education Section */}
-        <div className="mb-12 space-y-1">
-          <span>Education</span>
-          <div className="flex">
-            <span className="mx-4">2025 → 2028</span>
-            <span className="mx-2">Software Engineering</span>
-            <span className="w-200">@ FIAP</span>
-          </div>
-          <div className="flex">
-            <span className="mx-4">2025 → 2028</span>
-            <span className="mx-2">Cybersecurity</span>
-            <span className="w-200">@ FATEC</span>
-          </div>
-        </div>
-
-        {/* Education Section */}
-        <div className="mb-12 space-y-1">
-          <span>Projects</span>
-          <div className="flex">
-            <span className="mx-4">2025 →</span>
-            <a
-              href="https://www.magogaurl.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mx-2 hover:underline"
-            >
-              URL Shortener
-            </a>
-          </div>
-          <div className="flex">
-            <span className="mx-4">2025 →</span>
-            <a
-              href="https://magogaurl.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mx-2 hover:underline"
-            >
-              Websocket Chat
-            </a>
-          </div>
-        </div>
-
-        {/* Footer Links Section */}
-        <div className="absolute bottom-8 left-8">
-          <div className="flex space-x-4 text-lg font-mono">
-            <a href="blog" className="hover:underline">
-              Blog
-            </a>
-            <a
-              href="https://github.com/fabricio-magoga"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
-              Github
-            </a>
-            <a
-              href="mailto:contato.fabriciomagoga@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
-              Email
-            </a>
-            <a
-              href="https://www.linkedin.com/in/fabriciomagoga/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
-              Linkedin
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-1/2 relative">
+    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row">
+      {/* Dithering shader panel - top on mobile, right side on desktop */}
+      <div className="w-full h-48 sm:h-64 md:h-auto md:w-1/2 md:order-2 relative shrink-0">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
@@ -156,6 +143,87 @@ export default function ResumePage() {
           rotation={0}
           speed={0.1}
         />
+      </div>
+
+      {/* Content panel */}
+      <div
+        className={`w-full md:w-1/2 md:order-1 font-mono relative z-10 flex flex-col min-h-0 md:min-h-screen ${
+          isDarkMode ? "bg-black text-white" : "bg-white text-black"
+        }`}
+      >
+        <div className="flex-1 p-5 sm:p-8">
+          {/* Top bar with site name and theme toggle */}
+          <div className="flex items-center justify-between mb-8 sm:mb-12">
+            <h1 className="text-sm sm:text-lg font-normal">
+              fabriciomagoga.com.br
+            </h1>
+            <ThemeToggle
+              isDarkMode={isDarkMode}
+              onToggle={() => setIsDarkMode(!isDarkMode)}
+            />
+          </div>
+
+          {/* Name and title */}
+          <header className="mb-8 sm:mb-12">
+            <h2 className="text-base sm:text-lg font-normal text-balance">
+              FABRICIO MAGOGA
+            </h2>
+            <h3 className="text-base sm:text-lg font-normal opacity-80">
+              SOFTWARE ENGINEER
+            </h3>
+          </header>
+
+          {/* Experience Section */}
+          <section className="mb-8 sm:mb-12 space-y-2" aria-label="Experience">
+            <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
+              Experience
+            </h4>
+            <SectionEntry
+              date="Oct 2025 → Present"
+              title="IT Intern"
+              org="INSS"
+            />
+          </section>
+
+          {/* Education Section */}
+          <section className="mb-8 sm:mb-12 space-y-2" aria-label="Education">
+            <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
+              Education
+            </h4>
+            <SectionEntry
+              date="2025 → 2028"
+              title="Software Engineering"
+              org="FIAP"
+            />
+            <SectionEntry
+              date="2025 → 2028"
+              title="Cybersecurity"
+              org="FATEC"
+            />
+          </section>
+
+          {/* Projects Section */}
+          <section className="mb-8 sm:mb-12 space-y-2" aria-label="Projects">
+            <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
+              Projects
+            </h4>
+            <SectionEntry
+              date="2025 →"
+              title="URL Shortener"
+              href="https://www.magogaurl.vercel.app"
+            />
+            <SectionEntry
+              date="2025 →"
+              title="Websocket Chat"
+              href="https://magogaurl.vercel.app"
+            />
+          </section>
+        </div>
+
+        {/* Footer Links - flows naturally instead of absolute positioning */}
+        <footer className="p-5 sm:p-8 pt-0">
+          <FooterLinks />
+        </footer>
       </div>
     </div>
   );
