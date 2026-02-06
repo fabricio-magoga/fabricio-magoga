@@ -257,14 +257,36 @@ Escolha ferramentas que se adequem ao seu fluxo. Nao adote algo so porque e popu
   },
 ]
 
+// Dynamic posts loaded from file (server-side only)
+let dynamicPostsCache: BlogPost[] | null = null
+
+export async function loadDynamicPosts(): Promise<BlogPost[]> {
+  // Only runs on the server
+  if (typeof window !== "undefined") return []
+
+  try {
+    const fs = await import("fs/promises")
+    const path = await import("path")
+    const filePath = path.join(process.cwd(), "data", "posts.json")
+    await fs.access(filePath)
+    const data = await fs.readFile(filePath, "utf-8")
+    dynamicPostsCache = JSON.parse(data)
+    return dynamicPostsCache ?? []
+  } catch {
+    return []
+  }
+}
+
 export function getAllPosts(): BlogPost[] {
-  return blogPosts.sort(
+  const all = [...blogPosts, ...(dynamicPostsCache ?? [])]
+  return all.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((post) => post.slug === slug)
+  const all = [...blogPosts, ...(dynamicPostsCache ?? [])]
+  return all.find((post) => post.slug === slug)
 }
 
 export function formatDate(dateString: string): string {
