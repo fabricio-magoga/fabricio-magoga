@@ -17,9 +17,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Fabrício Magoga - Software Engineer",
+  title: {
+    default: "Fabricio Magoga - Software Engineer",
+    template: "%s | Fabricio Magoga",
+  },
   description:
-    "Software Engineer portfolio and resume template featuring a unique dithering shader effect.",
+    "Software Engineer portfolio, blog and personal website. Articles about software engineering, cybersecurity, productivity and tech career.",
   icons: {
     icon: [
       {
