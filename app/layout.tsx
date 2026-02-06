@@ -17,25 +17,29 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Fabrício Magoga - Software Engineer",
+  title: {
+    default: "Fabricio Magoga - Software Engineer",
+    template: "%s | Fabricio Magoga",
+  },
   description:
-    "Software Engineer portfolio and resume template featuring a unique dithering shader effect.",
-  // icons: {
-  //   icon: [
-  //     {
-  //       url: "/icon-light-32x32.png",
-  //       media: "(prefers-color-scheme: light)",
-  //     },
-  //     {
-  //       url: "/icon-dark-32x32.png",
-  //       media: "(prefers-color-scheme: dark)",
-  //     },
-  //     {
-  //       url: "/icon.svg",
-  //       type: "image/svg+xml",
-  //     },
-  //   ],
-  // },
+    "Software Engineer portfolio, blog and personal website. Articles about software engineering, cybersecurity, productivity and tech career.",
+  icons: {
+    icon: [
+      {
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({

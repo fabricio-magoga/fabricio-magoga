@@ -2,6 +2,7 @@
 
 import { Dithering } from "@paper-design/shaders-react";
 import { useState } from "react";
+import Link from "next/link";
 
 function ThemeToggle({
   isDarkMode,
@@ -89,7 +90,7 @@ function SectionEntry({
 
 function FooterLinks() {
   const links = [
-    { label: "Blog", href: "blog" },
+    { label: "Blog", href: "/blog" },
     {
       label: "Github",
       href: "https://github.com/fabricio-magoga",
@@ -133,6 +134,7 @@ export default function ResumePage() {
   return (
     <div
       className={`relative h-screen overflow-hidden flex flex-col md:flex-row ${isDarkMode ? "bg-black" : "bg-white"}`}
+      style={{ height: "100vh", overflow: "hidden" }}
     >
       {/* Dithering shader panel - top on mobile, right side on desktop */}
       <div className="w-full h-[30vh] md:h-auto md:w-1/2 md:order-2 relative shrink-0">

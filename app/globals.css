@@ -90,6 +90,5 @@
   body {
     @apply bg-black text-foreground;
     height: 100%;
-    overflow: hidden;
   }
 }
