@@ -1,18 +1,18 @@
 export interface BlogPost {
-  slug: string
-  title: string
-  date: string
-  excerpt: string
-  category: string
-  readingTime: string
-  content: string
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  category: string;
+  readingTime: string;
+  content: string;
 }
 
 export const blogPosts: BlogPost[] = [
   {
     slug: "comecando-com-engenharia-de-software",
     title: "Comecando com Engenharia de Software",
-    date: "2025-12-15",
+    date: "2026-02-06",
     excerpt:
       "Reflexoes sobre os primeiros passos na area de engenharia de software, desafios iniciais e como construir uma base solida de conhecimento tecnico.",
     category: "Carreira",
@@ -58,7 +58,7 @@ O importante e comecar. Nao espere estar "pronto" para construir algo. Voce apre
   {
     slug: "seguranca-em-aplicacoes-web",
     title: "Seguranca em Aplicacoes Web: O Basico que Todo Dev Precisa Saber",
-    date: "2025-11-28",
+    date: "2026-02-06",
     excerpt:
       "Uma introducao pratica aos conceitos fundamentais de seguranca em aplicacoes web, incluindo OWASP Top 10, sanitizacao de inputs e autenticacao segura.",
     category: "Seguranca",
@@ -105,7 +105,7 @@ Investir em seguranca desde o inicio do projeto e muito mais barato do que remed
   {
     slug: "produtividade-para-desenvolvedores",
     title: "Produtividade para Desenvolvedores: Habitos e Ferramentas",
-    date: "2025-11-10",
+    date: "2026-02-06",
     excerpt:
       "Dicas praticas de produtividade para desenvolvedores, desde gerenciamento de tempo ate automacoes e atalhos que fazem a diferenca no dia a dia.",
     category: "Produtividade",
@@ -149,7 +149,7 @@ O segredo da produtividade a longo prazo e consistencia. Pequenos habitos diario
   {
     slug: "introducao-ao-backend-com-nodejs",
     title: "Introducao ao Backend com Node.js",
-    date: "2025-10-22",
+    date: "2026-02-06",
     excerpt:
       "Um guia pratico para quem esta comecando no desenvolvimento backend com Node.js, cobrindo conceitos fundamentais, Express e boas praticas.",
     category: "Backend",
@@ -202,14 +202,14 @@ Para projetos maiores, organize seu codigo:
 Node.js e uma excelente porta de entrada para o mundo do backend. Comece simples, entenda os conceitos e va evoluindo gradualmente.`,
   },
   {
-    slug: "ferramentas-essenciais-2025",
-    title: "Ferramentas Essenciais para Desenvolvedores em 2025",
-    date: "2025-10-05",
+    slug: "ferramentas-essenciais-2026",
+    title: "Ferramentas Essenciais para Desenvolvedores em 2026",
+    date: "2026-02-06",
     excerpt:
-      "Uma curadoria das ferramentas mais uteis para desenvolvedores em 2025, desde editores e terminais ate servicos de deploy e monitoramento.",
+      "Uma curadoria das ferramentas mais uteis para desenvolvedores em 2026, desde editores e terminais ate servicos de deploy e monitoramento.",
     category: "Ferramentas",
     readingTime: "5 min",
-    content: `# Ferramentas Essenciais para Desenvolvedores em 2025
+    content: `# Ferramentas Essenciais para Desenvolvedores em 2026
 
 O ecossistema de ferramentas para desenvolvedores evolui rapidamente. Aqui esta minha selecao das ferramentas que mais impactam a produtividade no dia a dia.
 
@@ -255,26 +255,36 @@ A inteligencia artificial se tornou parte integral do fluxo de trabalho:
 
 Escolha ferramentas que se adequem ao seu fluxo. Nao adote algo so porque e popular - adote porque resolve um problema real no seu dia a dia.`,
   },
-]
+];
 
 export function getAllPosts(): BlogPost[] {
   return blogPosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((post) => post.slug === slug)
+  return blogPosts.find((post) => post.slug === slug);
 }
 
 export function formatDate(dateString: string): string {
   // Parse date parts directly from the YYYY-MM-DD string to avoid
   // timezone discrepancies between server and client (hydration mismatch).
-  const [year, month, day] = dateString.split("-")
+  const [year, month, day] = dateString.split("-");
   const months = [
-    "jan", "fev", "mar", "abr", "mai", "jun",
-    "jul", "ago", "set", "out", "nov", "dez",
-  ]
-  const monthIndex = parseInt(month, 10) - 1
-  return `${day} de ${months[monthIndex]}. de ${year}`
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
+  ];
+  const monthIndex = parseInt(month, 10) - 1;
+  return `${day} de ${months[monthIndex]}. de ${year}`;
 }
