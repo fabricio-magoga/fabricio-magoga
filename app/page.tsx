@@ -71,13 +71,17 @@ function SectionEntry({
   );
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-0 pl-4 sm:pl-0">
-      <span className="text-xs sm:text-sm opacity-60 sm:mx-4 shrink-0">
+    <div className="flex items-baseline whitespace-nowrap overflow-hidden">
+      <span className="text-xs sm:text-sm opacity-60 mx-4 shrink-0">
         {date}
       </span>
-      <span className="text-sm sm:text-base sm:mx-2">{titleContent}</span>
+      <span className="text-xs sm:text-sm mx-1 sm:mx-2 truncate">
+        {titleContent}
+      </span>
       {org && (
-        <span className="text-xs sm:text-sm opacity-60">{"@ " + org}</span>
+        <span className="text-xs sm:text-sm opacity-60 shrink-0">
+          {"@ " + org}
+        </span>
       )}
     </div>
   );
@@ -127,9 +131,11 @@ export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col md:flex-row">
+    <div
+      className={`relative h-screen overflow-hidden flex flex-col md:flex-row ${isDarkMode ? "bg-black" : "bg-white"}`}
+    >
       {/* Dithering shader panel - top on mobile, right side on desktop */}
-      <div className="w-full h-48 sm:h-64 md:h-auto md:w-1/2 md:order-2 relative shrink-0">
+      <div className="w-full h-[30vh] md:h-auto md:w-1/2 md:order-2 relative shrink-0">
         <Dithering
           style={{ height: "100%", width: "100%" }}
           colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
@@ -147,11 +153,11 @@ export default function ResumePage() {
 
       {/* Content panel */}
       <div
-        className={`w-full md:w-1/2 md:order-1 font-mono relative z-10 flex flex-col min-h-0 md:min-h-screen ${
+        className={`w-full md:w-1/2 md:order-1 font-mono relative z-10 flex flex-col flex-1 min-h-0 ${
           isDarkMode ? "bg-black text-white" : "bg-white text-black"
         }`}
       >
-        <div className="flex-1 p-5 sm:p-8">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8">
           {/* Top bar with site name and theme toggle */}
           <div className="flex items-center justify-between mb-8 sm:mb-12">
             <h1 className="text-sm sm:text-lg font-normal">
@@ -221,7 +227,7 @@ export default function ResumePage() {
         </div>
 
         {/* Footer Links - flows naturally instead of absolute positioning */}
-        <footer className="p-5 sm:p-8 pt-0">
+        <footer className="shrink-0 p-5 sm:p-8 pt-0">
           <FooterLinks />
         </footer>
       </div>
