@@ -218,12 +218,17 @@ export default function ResumePage() {
             <SectionEntry
               date="2025 →"
               title="URL Shortener"
-              href="https://www.magogaurl.vercel.app"
+              href="https://www.magogaurl.vercel.app/"
             />
             <SectionEntry
               date="2025 →"
               title="Websocket Chat"
-              href="https://magogaurl.vercel.app"
+              href="https://magoga-chat.vercel.app/"
+            />
+            <SectionEntry
+              date="2026 →"
+              title="Fabrício Magoga (this website)"
+              href="https://fabriciomagoga.com.br/"
             />
           </section>
         </div>
