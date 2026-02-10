@@ -218,7 +218,7 @@ export default function ResumePage() {
             <SectionEntry
               date="2025 →"
               title="URL Shortener"
-              href="https://www.magogaurl.vercel.app/"
+              href="https://magogaurl.vercel.app/"
             />
             <SectionEntry
               date="2025 →"
