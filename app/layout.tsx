@@ -37,6 +37,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/icon.ico" sizes="any" />
+        <link rel="shortcut icon" href="/icon.ico" />
+      </head>
       <body className={`font-sans antialiased`}>
         {children}
         <Analytics />
