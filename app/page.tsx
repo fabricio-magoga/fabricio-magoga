@@ -1,8 +1,10 @@
 "use client";
 
 import { Dithering } from "@paper-design/shaders-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+// 1. Importação necessária para a animação
+import { motion, AnimatePresence } from "framer-motion";
 
 function ThemeToggle({
   isDarkMode,
@@ -131,26 +133,58 @@ function FooterLinks() {
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
+  // 2. Estado para controlar o shape atual
+  const [currentShape, setCurrentShape] = useState("cat");
+  const SHAPES = ["cat", "warp", "sphere", "ripple", "swirl", "dots"]; // Lista de shapes disponíveis
+
+  // 3. Effect para alternar o shape a cada 5 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentShape((prev) => {
+        const nextIndex = (SHAPES.indexOf(prev) + 1) % SHAPES.length;
+        return SHAPES[nextIndex];
+      });
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [SHAPES]); // Adicionado dependência (embora constante, é boa prática)
+
   return (
     <div
-      className={`relative h-screen overflow-hidden flex flex-col md:flex-row ${isDarkMode ? "bg-black" : "bg-white"}`}
+      className={`relative h-screen overflow-hidden flex flex-col md:flex-row ${
+        isDarkMode ? "bg-black" : "bg-white"
+      }`}
       style={{ height: "100vh", overflow: "hidden" }}
     >
       {/* Dithering shader panel - top on mobile, right side on desktop */}
-      <div className="w-full h-[30vh] md:h-auto md:w-1/2 md:order-2 relative shrink-0">
-        <Dithering
-          style={{ height: "100%", width: "100%" }}
-          colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 95%)"}
-          colorFront={isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 7%, 24%)"}
-          shape="cat"
-          type="4x4"
-          pxSize={3}
-          offsetX={0}
-          offsetY={0}
-          scale={0.8}
-          rotation={0}
-          speed={0.1}
-        />
+      {/* Adicionado overflow-hidden para garantir que a animação não vaze */}
+      <div className="w-full h-[30vh] md:h-auto md:w-1/2 md:order-2 relative shrink-0 overflow-hidden">
+        {/* 4. Envolvendo com AnimatePresence e motion.div */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentShape} // A chave muda -> React remonta -> Animação acontece
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }} // Duração da transição
+            className="w-full h-full"
+          >
+            <Dithering
+              style={{ height: "100%", width: "100%" }}
+              colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 100%)"}
+              colorFront={
+                isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"
+              }
+              shape={currentShape} // Shape dinâmico
+              type="4x4"
+              pxSize={1}
+              offsetX={0}
+              offsetY={0}
+              scale={0.8}
+              rotation={0}
+              speed={0.2}
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Content panel */}
@@ -159,7 +193,7 @@ export default function ResumePage() {
           isDarkMode ? "bg-black text-white" : "bg-white text-black"
         }`}
       >
-        <div className="flex-1 overflow-y-auto p-5 sm:p-8">
+        <div className="flex-1 overflow-hidden p-5 sm:p-8">
           {/* Top bar with site name and theme toggle */}
           <div className="flex items-center justify-between mb-8 sm:mb-12">
             <h1 className="text-sm sm:text-lg font-normal">
@@ -182,7 +216,10 @@ export default function ResumePage() {
           </header>
 
           {/* Experience Section */}
-          <section className="mb-8 sm:mb-12 space-y-2" aria-label="Experience">
+          <section
+            className="mb-8 sm:mb-12 space-y-2 overflow-y-auto"
+            aria-label="Experience"
+          >
             <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
               Experience
             </h4>
