@@ -167,11 +167,30 @@ function FooterLinks() {
 }
 
 export default function ResumePage() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  // Inicializadores que leem do localStorage imediatamente
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window === "undefined") return true;
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : true;
+  });
 
-  // Estado para controlar o shape atual
-  const [currentShape, setCurrentShape] = useState("auto");
+  const [currentShape, setCurrentShape] = useState(() => {
+    if (typeof window === "undefined") return "auto";
+    const saved = localStorage.getItem("shape");
+    return saved || "auto";
+  });
+
   const SHAPES = ["cat", "warp", "sphere", "ripple", "swirl"]; // Lista de shapes disponíveis
+
+  // Effect para salvar tema no localStorage quando mudar
+  useEffect(() => {
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
+
+  // Effect para salvar shape no localStorage quando mudar
+  useEffect(() => {
+    localStorage.setItem("shape", currentShape);
+  }, [currentShape]);
 
   // Effect para alternar o shape automaticamente quando em modo "auto"
   useEffect(() => {
@@ -213,7 +232,7 @@ export default function ResumePage() {
               style={{ height: "100%", width: "100%" }}
               colorBack={isDarkMode ? "hsl(0, 0%, 0%)" : "hsl(0, 0%, 100%)"}
               colorFront={
-                isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"
+                isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 81%, 50%)"
               }
               shape={currentShape as any} // Shape dinâmico
               type="4x4"
