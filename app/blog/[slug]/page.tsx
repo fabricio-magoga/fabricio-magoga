@@ -1,39 +1,39 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useTheme } from "next-themes"
-import { useParams } from "next/navigation"
-import Link from "next/link"
-import { getPostBySlug, getAllPosts, formatDate } from "@/lib/blog-data"
-import { BlogHeader } from "@/components/blog-header"
+import { useState } from "react";
+import { useTheme } from "next-themes";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { getPostBySlug, getAllPosts, formatDate } from "@/lib/blog-data";
+import { BlogHeader } from "@/components/blog-header";
 
 function MarkdownRenderer({
   content,
   isDarkMode,
 }: {
-  content: string
-  isDarkMode: boolean
+  content: string;
+  isDarkMode: boolean;
 }) {
-  const lines = content.trim().split("\n")
-  const elements: React.ReactNode[] = []
-  let i = 0
-  let inCodeBlock = false
-  let codeLines: string[] = []
-  let codeLanguage = ""
+  const lines = content.trim().split("\n");
+  const elements: React.ReactNode[] = [];
+  let i = 0;
+  let inCodeBlock = false;
+  let codeLines: string[] = [];
+  let codeLanguage = "";
 
   while (i < lines.length) {
-    const line = lines[i]
+    const line = lines[i];
 
     // Code blocks
     if (line.trim().startsWith("```")) {
       if (!inCodeBlock) {
-        inCodeBlock = true
-        codeLanguage = line.trim().replace("```", "")
-        codeLines = []
-        i++
-        continue
+        inCodeBlock = true;
+        codeLanguage = line.trim().replace("```", "");
+        codeLines = [];
+        i++;
+        continue;
       } else {
-        inCodeBlock = false
+        inCodeBlock = false;
         elements.push(
           <div key={i} className="my-4">
             {codeLanguage && (
@@ -50,43 +50,38 @@ function MarkdownRenderer({
             <pre
               className={`text-xs sm:text-sm p-4 overflow-x-auto ${
                 codeLanguage ? "rounded-b-sm" : "rounded-sm"
-              } ${
-                isDarkMode ? "bg-white/5" : "bg-black/[0.03]"
-              }`}
+              } ${isDarkMode ? "bg-white/5" : "bg-black/[0.03]"}`}
             >
               <code>{codeLines.join("\n")}</code>
             </pre>
-          </div>
-        )
-        i++
-        continue
+          </div>,
+        );
+        i++;
+        continue;
       }
     }
 
     if (inCodeBlock) {
-      codeLines.push(line)
-      i++
-      continue
+      codeLines.push(line);
+      i++;
+      continue;
     }
 
     // Empty lines
     if (line.trim() === "") {
-      i++
-      continue
+      i++;
+      continue;
     }
 
     // Headings
     if (line.startsWith("# ")) {
       elements.push(
-        <h1
-          key={i}
-          className="text-lg sm:text-xl font-normal mt-8 mb-4"
-        >
+        <h1 key={i} className="text-lg sm:text-xl font-normal mt-8 mb-4">
           {line.replace("# ", "")}
-        </h1>
-      )
-      i++
-      continue
+        </h1>,
+      );
+      i++;
+      continue;
     }
 
     if (line.startsWith("## ")) {
@@ -96,10 +91,10 @@ function MarkdownRenderer({
           className="text-base sm:text-lg font-normal mt-8 mb-3 opacity-90"
         >
           {line.replace("## ", "")}
-        </h2>
-      )
-      i++
-      continue
+        </h2>,
+      );
+      i++;
+      continue;
     }
 
     if (line.startsWith("### ")) {
@@ -109,10 +104,10 @@ function MarkdownRenderer({
           className="text-sm sm:text-base font-normal mt-6 mb-2 opacity-80"
         >
           {line.replace("### ", "")}
-        </h3>
-      )
-      i++
-      continue
+        </h3>,
+      );
+      i++;
+      continue;
     }
 
     // Blockquote
@@ -125,24 +120,24 @@ function MarkdownRenderer({
           }`}
         >
           {line.replace("> ", "").replace(/"/g, "")}
-        </blockquote>
-      )
-      i++
-      continue
+        </blockquote>,
+      );
+      i++;
+      continue;
     }
 
     // Unordered list items
     if (line.trim().startsWith("- ")) {
-      const listItems: React.ReactNode[] = []
+      const listItems: React.ReactNode[] = [];
       while (i < lines.length && lines[i].trim().startsWith("- ")) {
-        const text = lines[i].trim().replace("- ", "")
+        const text = lines[i].trim().replace("- ", "");
         listItems.push(
           <li key={i} className="flex gap-2">
             <span className="opacity-40 shrink-0">-</span>
             <span>{renderInlineFormatting(text, isDarkMode)}</span>
-          </li>
-        )
-        i++
+          </li>,
+        );
+        i++;
       }
       elements.push(
         <ul
@@ -150,24 +145,24 @@ function MarkdownRenderer({
           className="my-3 space-y-1 text-xs sm:text-sm opacity-80 leading-relaxed"
         >
           {listItems}
-        </ul>
-      )
-      continue
+        </ul>,
+      );
+      continue;
     }
 
     // Ordered list items
     if (/^\d+\.\s/.test(line.trim())) {
-      const listItems: React.ReactNode[] = []
+      const listItems: React.ReactNode[] = [];
       while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
-        const text = lines[i].trim().replace(/^\d+\.\s/, "")
-        const num = lines[i].trim().match(/^(\d+)\./)?.[1]
+        const text = lines[i].trim().replace(/^\d+\.\s/, "");
+        const num = lines[i].trim().match(/^(\d+)\./)?.[1];
         listItems.push(
           <li key={i} className="flex gap-2">
             <span className="opacity-40 shrink-0">{num}.</span>
             <span>{renderInlineFormatting(text, isDarkMode)}</span>
-          </li>
-        )
-        i++
+          </li>,
+        );
+        i++;
       }
       elements.push(
         <ol
@@ -175,36 +170,36 @@ function MarkdownRenderer({
           className="my-3 space-y-1 text-xs sm:text-sm opacity-80 leading-relaxed"
         >
           {listItems}
-        </ol>
-      )
-      continue
+        </ol>,
+      );
+      continue;
     }
 
     // Paragraph
     elements.push(
-      <p
-        key={i}
-        className="text-xs sm:text-sm opacity-70 leading-relaxed my-3"
-      >
+      <p key={i} className="text-xs sm:text-sm opacity-70 leading-relaxed my-3">
         {renderInlineFormatting(line, isDarkMode)}
-      </p>
-    )
-    i++
+      </p>,
+    );
+    i++;
   }
 
-  return <div>{elements}</div>
+  return <div>{elements}</div>;
 }
 
-function renderInlineFormatting(text: string, isDark?: boolean): React.ReactNode {
+function renderInlineFormatting(
+  text: string,
+  isDark?: boolean,
+): React.ReactNode {
   // Handle bold, inline code, etc.
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g)
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
   return parts.map((part, idx) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
         <strong key={idx} className="font-bold opacity-100">
           {part.slice(2, -2)}
         </strong>
-      )
+      );
     }
     if (part.startsWith("`") && part.endsWith("`")) {
       return (
@@ -216,20 +211,20 @@ function renderInlineFormatting(text: string, isDark?: boolean): React.ReactNode
         >
           {part.slice(1, -1)}
         </code>
-      )
+      );
     }
-    return part
-  })
+    return part;
+  });
 }
 
 export default function BlogPostPage() {
-  const params = useParams()
-  const { theme, resolvedTheme, setTheme } = useTheme()
-  const isDarkMode = (resolvedTheme || theme) === "dark"
+  const params = useParams();
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const isDarkMode = (resolvedTheme || theme) === "dark";
 
-  const slug = params.slug as string
-  const post = getPostBySlug(slug)
-  const allPosts = getAllPosts()
+  const slug = params.slug as string;
+  const post = getPostBySlug(slug);
+  const allPosts = getAllPosts();
 
   if (!post) {
     return (
@@ -248,13 +243,14 @@ export default function BlogPostPage() {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   // Find adjacent posts
-  const currentIndex = allPosts.findIndex((p) => p.slug === slug)
-  const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
-  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
+  const currentIndex = allPosts.findIndex((p) => p.slug === slug);
+  const prevPost =
+    currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+  const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 
   return (
     <div
@@ -299,9 +295,7 @@ export default function BlogPostPage() {
 
         {/* Separator */}
         <div
-          className={`h-px mb-8 ${
-            isDarkMode ? "bg-white/10" : "bg-black/10"
-          }`}
+          className={`h-px mb-8 ${isDarkMode ? "bg-white/10" : "bg-black/10"}`}
         />
 
         {/* Content */}
@@ -319,10 +313,7 @@ export default function BlogPostPage() {
           <div className="flex justify-between gap-4">
             <div className="flex-1 min-w-0">
               {prevPost && (
-                <Link
-                  href={`/blog/${prevPost.slug}`}
-                  className="group block"
-                >
+                <Link href={`/blog/${prevPost.slug}`} className="group block">
                   <span className="text-[10px] uppercase tracking-widest opacity-40 block mb-1">
                     Anterior
                   </span>
@@ -334,10 +325,7 @@ export default function BlogPostPage() {
             </div>
             <div className="flex-1 min-w-0 text-right">
               {nextPost && (
-                <Link
-                  href={`/blog/${nextPost.slug}`}
-                  className="group block"
-                >
+                <Link href={`/blog/${nextPost.slug}`} className="group block">
                   <span className="text-[10px] uppercase tracking-widest opacity-40 block mb-1">
                     Proximo
                   </span>
@@ -351,23 +339,19 @@ export default function BlogPostPage() {
         </nav>
 
         {/* Footer */}
-        <footer className={`mt-10 pt-6 border-t ${isDarkMode ? "border-white/10" : "border-black/10"}`}>
+        <footer
+          className={`mt-10 pt-6 border-t ${isDarkMode ? "border-white/10" : "border-black/10"}`}
+        >
           <div className="flex items-center justify-between text-xs opacity-40">
-            <Link
-              href="/"
-              className="hover:opacity-80 transition-opacity"
-            >
+            <Link href="/" className="hover:opacity-80 transition-opacity">
               fabriciomagoga.com.br
             </Link>
-            <Link
-              href="/blog"
-              className="hover:opacity-80 transition-opacity"
-            >
+            <Link href="/blog" className="hover:opacity-80 transition-opacity">
               Todos os artigos
             </Link>
           </div>
         </footer>
       </div>
     </div>
-  )
+  );
 }
