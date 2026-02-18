@@ -5,6 +5,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 // 1. Importação necessária para a animação
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function ThemeToggle({
   isDarkMode,
@@ -46,6 +53,35 @@ function ThemeToggle({
         </svg>
       )}
     </button>
+  );
+}
+
+function ShapeSelector({
+  currentShape,
+  onShapeChange,
+  isDarkMode,
+}: {
+  currentShape: string;
+  onShapeChange: (shape: string) => void;
+  isDarkMode: boolean;
+}) {
+  const shapes = ["auto", "cat", "warp", "sphere", "ripple", "swirl"];
+
+  return (
+    <Select value={currentShape} onValueChange={onShapeChange}>
+      <SelectTrigger className="border-0 bg-transparent text-sm p-0 h-auto focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none outline-none ring-0 hover:opacity-70 transition-opacity [&>svg]:hidden">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent className="bg-black border-none text-white">
+        {shapes.map((shape) => (
+          <SelectItem key={shape} value={shape}>
+            {shape === "auto"
+              ? "Auto"
+              : shape.charAt(0).toUpperCase() + shape.slice(1)}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
 
@@ -133,20 +169,25 @@ function FooterLinks() {
 export default function ResumePage() {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // 2. Estado para controlar o shape atual
-  const [currentShape, setCurrentShape] = useState("cat");
-  const SHAPES = ["cat", "warp", "sphere", "ripple", "swirl", "dots"]; // Lista de shapes disponíveis
+  // Estado para controlar o shape atual
+  const [currentShape, setCurrentShape] = useState("auto");
+  const SHAPES = ["cat", "warp", "sphere", "ripple", "swirl"]; // Lista de shapes disponíveis
 
-  // 3. Effect para alternar o shape a cada 5 segundos
+  // Effect para alternar o shape automaticamente quando em modo "auto"
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentShape((prev) => {
-        const nextIndex = (SHAPES.indexOf(prev) + 1) % SHAPES.length;
-        return SHAPES[nextIndex];
-      });
-    }, 15000);
-    return () => clearInterval(interval);
-  }, [SHAPES]); // Adicionado dependência (embora constante, é boa prática)
+    if (currentShape === "auto") {
+      const interval = setInterval(() => {
+        setCurrentShape((prev) => {
+          if (prev === "auto") {
+            return SHAPES[0]; // Começa com o primeiro shape
+          }
+          const nextIndex = (SHAPES.indexOf(prev) + 1) % SHAPES.length;
+          return SHAPES[nextIndex];
+        });
+      }, 15000);
+      return () => clearInterval(interval);
+    }
+  }, [currentShape, SHAPES]);
 
   return (
     <div
@@ -199,10 +240,17 @@ export default function ResumePage() {
             <h1 className="text-sm sm:text-lg font-normal">
               fabriciomagoga.com.br
             </h1>
-            <ThemeToggle
-              isDarkMode={isDarkMode}
-              onToggle={() => setIsDarkMode(!isDarkMode)}
-            />
+            <div className="flex items-center gap-3">
+              <ShapeSelector
+                currentShape={currentShape}
+                onShapeChange={setCurrentShape}
+                isDarkMode={isDarkMode}
+              />
+              <ThemeToggle
+                isDarkMode={isDarkMode}
+                onToggle={() => setIsDarkMode(!isDarkMode)}
+              />
+            </div>
           </div>
 
           {/* Name and title */}
