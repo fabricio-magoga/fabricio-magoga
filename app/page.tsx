@@ -2,6 +2,7 @@
 
 import { Dithering } from "@paper-design/shaders-react";
 import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 // 1. Importação necessária para a animação
 import { motion, AnimatePresence } from "framer-motion";
@@ -167,12 +168,8 @@ function FooterLinks() {
 }
 
 export default function ResumePage() {
-  // Inicializadores que leem do localStorage imediatamente
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const saved = localStorage.getItem("theme");
-    return saved ? saved === "dark" : true;
-  });
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const isDarkMode = (resolvedTheme || theme) === "dark";
 
   const [currentShape, setCurrentShape] = useState(() => {
     if (typeof window === "undefined") return "auto";
@@ -188,10 +185,7 @@ export default function ResumePage() {
   const displayShape =
     currentShape === "auto" ? SHAPES[shapeIndex] : currentShape;
 
-  // Effect para salvar tema no localStorage quando mudar
-  useEffect(() => {
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
+  // useTheme já persiste o tema via localStorage (storageKey)
 
   // Effect para salvar shape no localStorage quando mudar
   useEffect(() => {
@@ -267,7 +261,7 @@ export default function ResumePage() {
               />
               <ThemeToggle
                 isDarkMode={isDarkMode}
-                onToggle={() => setIsDarkMode(!isDarkMode)}
+                onToggle={() => setTheme(isDarkMode ? "light" : "dark")}
               />
             </div>
           </div>

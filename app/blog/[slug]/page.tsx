@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useTheme } from "next-themes"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { getPostBySlug, getAllPosts, formatDate } from "@/lib/blog-data"
@@ -223,7 +224,8 @@ function renderInlineFormatting(text: string, isDark?: boolean): React.ReactNode
 
 export default function BlogPostPage() {
   const params = useParams()
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const { theme, resolvedTheme, setTheme } = useTheme()
+  const isDarkMode = (resolvedTheme || theme) === "dark"
 
   const slug = params.slug as string
   const post = getPostBySlug(slug)
@@ -263,7 +265,7 @@ export default function BlogPostPage() {
       <div className="mx-auto max-w-2xl px-5 sm:px-8 py-8 sm:py-14">
         <BlogHeader
           isDarkMode={isDarkMode}
-          onToggle={() => setIsDarkMode(!isDarkMode)}
+          onToggle={() => setTheme(isDarkMode ? "light" : "dark")}
         />
 
         {/* Post Meta */}

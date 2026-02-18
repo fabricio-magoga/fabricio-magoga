@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useTheme } from "next-themes"
 import { getAllPosts } from "@/lib/blog-data"
 import { BlogHeader } from "@/components/blog-header"
 import { BlogPostCard } from "@/components/blog-post-card"
@@ -8,7 +9,9 @@ import { BlogPostCard } from "@/components/blog-post-card"
 const allCategories = ["Todos", "Carreira", "Seguranca", "Tecnologia", "Ferramentas", "Produtividade", "Backend"]
 
 export default function BlogPage() {
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const { theme, resolvedTheme, setTheme } = useTheme()
+  const isDarkMode = (resolvedTheme || theme) === "dark"
+  
   const [activeCategory, setActiveCategory] = useState("Todos")
 
   const posts = getAllPosts()
@@ -25,7 +28,7 @@ export default function BlogPage() {
       <div className="mx-auto max-w-2xl px-5 sm:px-8 py-8 sm:py-14">
         <BlogHeader
           isDarkMode={isDarkMode}
-          onToggle={() => setIsDarkMode(!isDarkMode)}
+          onToggle={() => setTheme(isDarkMode ? "light" : "dark")}
         />
 
         {/* Title */}
