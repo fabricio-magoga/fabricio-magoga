@@ -24,20 +24,8 @@ export const metadata: Metadata = {
   description:
     "Software Engineer portfolio, blog and personal website. Articles about software engineering, cybersecurity, productivity and tech career.",
   icons: {
-    icon: [
-      {
-        url: "/icon.ico",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon.ico",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.ico",
-        type: "image/svg+xml",
-      },
-    ],
+    icon: "/icon.ico",
+    shortcut: "/icon.ico",
     apple: "/icon.ico",
   },
 };
