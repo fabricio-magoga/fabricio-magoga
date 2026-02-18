@@ -215,7 +215,7 @@ export default function ResumePage() {
               colorFront={
                 isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 100%, 70%)"
               }
-              shape={currentShape} // Shape dinâmico
+              shape={currentShape as any} // Shape dinâmico
               type="4x4"
               pxSize={1}
               offsetX={0}
