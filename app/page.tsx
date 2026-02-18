@@ -180,7 +180,13 @@ export default function ResumePage() {
     return saved || "auto";
   });
 
+  const [shapeIndex, setShapeIndex] = useState(0);
+
   const SHAPES = ["cat", "warp", "sphere", "ripple", "swirl"]; // Lista de shapes disponíveis
+
+  // Determina qual shape deve ser exibido
+  const displayShape =
+    currentShape === "auto" ? SHAPES[shapeIndex] : currentShape;
 
   // Effect para salvar tema no localStorage quando mudar
   useEffect(() => {
@@ -196,17 +202,11 @@ export default function ResumePage() {
   useEffect(() => {
     if (currentShape === "auto") {
       const interval = setInterval(() => {
-        setCurrentShape((prev) => {
-          if (prev === "auto") {
-            return SHAPES[0]; // Começa com o primeiro shape
-          }
-          const nextIndex = (SHAPES.indexOf(prev) + 1) % SHAPES.length;
-          return SHAPES[nextIndex];
-        });
+        setShapeIndex((prev) => (prev + 1) % SHAPES.length);
       }, 15000);
       return () => clearInterval(interval);
     }
-  }, [currentShape, SHAPES]);
+  }, [currentShape]);
 
   return (
     <div
@@ -221,7 +221,7 @@ export default function ResumePage() {
         {/* 4. Envolvendo com AnimatePresence e motion.div */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentShape} // A chave muda -> React remonta -> Animação acontece
+            key={displayShape} // A chave muda -> React remonta -> Animação acontece
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -234,7 +234,7 @@ export default function ResumePage() {
               colorFront={
                 isDarkMode ? "hsl(320, 100%, 70%)" : "hsl(220, 81%, 50%)"
               }
-              shape={currentShape as any} // Shape dinâmico
+              shape={displayShape as any} // Shape dinâmico
               type="4x4"
               pxSize={1}
               offsetX={0}
