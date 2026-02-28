@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Fabricio Magoga",
   },
   description:
-    "Software Engineer portfolio, blog and personal website. Articles about software engineering, cybersecurity, productivity and tech career.",
+    "Software Engineer portfolio showcasing projects, skills, and experience in development, software engineering, and technology.",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

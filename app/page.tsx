@@ -282,6 +282,17 @@ export default function ResumePage() {
             </h3>
           </header>
 
+          {/* CV Download button Section */}
+          <section className="mb-8 sm:mb-12">
+            <a
+              href="/Fabricio_Magoga_CV.pdf"
+              download
+              className="inline-block px-4 py-2 border border-current rounded hover:opacity-70 transition-colors text-sm sm:text-base"
+            >
+              Download CV
+            </a>
+          </section>
+
           {/* Experience Section */}
           <section
             className="mb-8 sm:mb-12 space-y-2 overflow-y-auto"
@@ -310,7 +321,7 @@ export default function ResumePage() {
             <SectionEntry
               date="2025 → 2028"
               title="Cybersecurity"
-              org="FATEC"
+              org="FATEC JD"
             />
           </section>
 
@@ -331,7 +342,7 @@ export default function ResumePage() {
             />
             <SectionEntry
               date="2026 →"
-              title="Fabrício Magoga (this website)"
+              title="Portfolio (this website)"
               href="https://fabriciomagoga.com.br/"
             />
           </section>
