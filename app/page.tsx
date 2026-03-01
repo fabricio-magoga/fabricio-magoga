@@ -128,7 +128,6 @@ function SectionEntry({
 
 function FooterLinks() {
   const links = [
-    { label: "Blog", href: "/blog" },
     {
       label: "Github",
       href: "https://github.com/fabricio-magoga",
