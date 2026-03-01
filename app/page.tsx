@@ -284,7 +284,7 @@ export default function ResumePage() {
           {/* CV Download button Section */}
           <section className="mb-8 sm:mb-12">
             <a
-              href="/CV_FABRICIO_MAGOGA.pdf"
+              href="/CV_FABRICIO_ALVES_MAGOGA.pdf"
               download
               className="inline-block px-4 py-2 border border-current rounded hover:opacity-70 transition-colors text-sm sm:text-base"
             >
