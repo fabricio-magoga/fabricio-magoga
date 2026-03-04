@@ -65,7 +65,7 @@ function ShapeSelector({
   onShapeChange: (shape: string) => void;
   isDarkMode: boolean;
 }) {
-  const shapes = ["auto", "cat", "warp", "sphere", "ripple", "swirl"];
+  const shapes = ["auto", "cat", "warp", "sphere", "ripple", "swirl", "wave"];
 
   return (
     <Select value={currentShape} onValueChange={onShapeChange}>
@@ -142,6 +142,11 @@ function FooterLinks() {
       label: "Linkedin",
       href: "https://www.linkedin.com/in/fabriciomagoga/",
       external: true,
+    },
+    {
+      label: "Download CV",
+      href: "/CV_FABRICIO_ALVES_MAGOGA.pdf",
+      external: false,
     },
   ];
 
@@ -282,15 +287,7 @@ export default function ResumePage() {
           </header>
 
           {/* CV Download button Section */}
-          <section className="mb-8 sm:mb-12">
-            <a
-              href="/CV_FABRICIO_ALVES_MAGOGA.pdf"
-              download
-              className="inline-block px-4 py-2 border border-current rounded hover:opacity-70 transition-colors text-sm sm:text-base"
-            >
-              Download CV
-            </a>
-          </section>
+          <section className="mb-8 sm:mb-12"></section>
 
           {/* Experience Section */}
           <section
