@@ -110,18 +110,20 @@ function SectionEntry({
   );
 
   return (
-    <div className="flex items-baseline whitespace-nowrap overflow-hidden">
+    <div className="flex flex-col sm:flex-row items-baseline whitespace-nowrap overflow-hidden">
       <span className="text-xs sm:text-sm opacity-60 mx-4 shrink-0">
         {date}
       </span>
-      <span className="text-xs sm:text-sm mx-1 sm:mx-2 truncate">
-        {titleContent}
-      </span>
-      {org && (
-        <span className="text-xs sm:text-sm opacity-60 shrink-0">
-          {"@ " + org}
+      <div>
+        <span className="text-xs sm:text-sm mx-1 sm:mx-2 truncate">
+          {titleContent}
         </span>
-      )}
+        {org && (
+          <span className="text-xs sm:text-sm opacity-60 shrink-0">
+            {"@ " + org}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -214,14 +216,13 @@ export default function ResumePage() {
 
   return (
     <div
-      className={`relative h-screen overflow-hidden flex flex-col md:flex-row ${
+      className={`relative flex flex-col md:flex-row ${
         isDarkMode ? "bg-black" : "bg-white"
       }`}
-      style={{ height: "100vh", overflow: "hidden" }}
     >
       {/* Dithering shader panel - top on mobile, right side on desktop */}
       {/* Adicionado overflow-hidden para garantir que a animação não vaze */}
-      <div className="w-full h-[30vh] md:h-auto md:w-1/2 md:order-2 relative shrink-0 overflow-hidden">
+      <div className="w-full h-[30vh] md:h-auto md:w-1/2 md:order-2 relative shrink-0">
         {/* 4. Envolvendo com AnimatePresence e motion.div */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -253,11 +254,11 @@ export default function ResumePage() {
 
       {/* Content panel */}
       <div
-        className={`w-full md:w-1/2 md:order-1 font-mono relative z-10 flex flex-col flex-1 min-h-0 ${
+        className={`w-full md:w-1/2 md:order-1 font-mono relative z-10 flex flex-col h-screen overflow-y-auto ${
           isDarkMode ? "bg-black text-white" : "bg-white text-black"
         }`}
       >
-        <div className="flex-1 overflow-hidden p-5 sm:p-8">
+        <div className="flex-1 p-5 sm:p-8">
           {/* Top bar with site name and theme toggle */}
           <div className="flex items-center justify-between mb-8 sm:mb-12">
             <h1 className="text-sm sm:text-lg font-normal">
@@ -286,62 +287,66 @@ export default function ResumePage() {
             </h3>
           </header>
 
-          {/* CV Download button Section */}
-          <section className="mb-8 sm:mb-12"></section>
+          <div className="flex-1">
+            {/* Experience Section */}
+            <section
+              className="mb-8 sm:mb-12 space-y-2"
+              aria-label="Experience"
+            >
+              <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
+                Experience
+              </h4>
+              <SectionEntry
+                date="Oct 2025 → Present"
+                title="IT Intern"
+                org="INSS"
+              />
+            </section>
 
-          {/* Experience Section */}
-          <section
-            className="mb-8 sm:mb-12 space-y-2 overflow-y-auto"
-            aria-label="Experience"
-          >
-            <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
-              Experience
-            </h4>
-            <SectionEntry
-              date="Oct 2025 → Present"
-              title="IT Intern"
-              org="INSS"
-            />
-          </section>
+            {/* Education Section */}
+            <section className="mb-8 sm:mb-12 space-y-2" aria-label="Education">
+              <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
+                Education
+              </h4>
+              <SectionEntry
+                date="2025 → 2028"
+                title="Software Engineering"
+                org="FIAP"
+              />
+              <SectionEntry
+                date="2025 → 2028"
+                title="Cybersecurity"
+                org="FATEC JD"
+              />
+              <SectionEntry
+                date="2022 → 2024"
+                title="IT Technical High School"
+                org="Escolas Anchieta"
+              />
+            </section>
 
-          {/* Education Section */}
-          <section className="mb-8 sm:mb-12 space-y-2" aria-label="Education">
-            <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
-              Education
-            </h4>
-            <SectionEntry
-              date="2025 → 2028"
-              title="Software Engineering"
-              org="FIAP"
-            />
-            <SectionEntry
-              date="2025 → 2028"
-              title="Cybersecurity"
-              org="FATEC JD"
-            />
-          </section>
-
-          {/* Projects Section */}
-          <section className="mb-8 sm:mb-12 space-y-2" aria-label="Projects">
-            <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
-              Projects
-            </h4>
-            <SectionEntry
-              date="2025 →"
-              title="URL Shortener"
-              href="https://magogaurl.vercel.app/"
-            />
-            <SectionEntry
-              date="2025 →"
-              title="Websocket Chat"
-              href="https://magoga-chat.vercel.app/"
-            />
-            <SectionEntry
-              date="2026 →"
-              title="Portfolio (this website)"
-              href="https://fabriciomagoga.com.br/"
-            />
-          </section>
+            {/* Projects Section */}
+            <section className="mb-8 sm:mb-12 space-y-2" aria-label="Projects">
+              <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
+                Projects
+              </h4>
+              <SectionEntry
+                date="2025"
+                title="URL Shortener"
+                href="https://magogaurl.vercel.app/"
+              />
+              <SectionEntry
+                date="2025"
+                title="Websocket Chat"
+                href="https://magoga-chat.vercel.app/"
+              />
+              <SectionEntry
+                date="2026"
+                title="Portfolio (this website)"
+                href="https://fabriciomagoga.com.br/"
+              />
+            </section>
+          </div>
         </div>
 
         {/* Footer Links - flows naturally instead of absolute positioning */}
