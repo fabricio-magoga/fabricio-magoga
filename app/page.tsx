@@ -330,11 +330,7 @@ export default function ResumePage() {
               <h4 className="text-sm sm:text-base font-normal opacity-50 uppercase tracking-wider">
                 Projects
               </h4>
-              <SectionEntry
-                date="2025"
-                title="URL Shortener"
-                href="https://magogaurl.vercel.app/"
-              />
+              <SectionEntry date="2025" title="URL Shortener" href="/url" />
               <SectionEntry
                 date="2025"
                 title="Websocket Chat"
@@ -343,7 +339,7 @@ export default function ResumePage() {
               <SectionEntry
                 date="2026"
                 title="Portfolio (this website)"
-                href="/url"
+                href="https://www.fabriciomagoga.com.br/"
               />
             </section>
           </div>

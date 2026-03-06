@@ -100,11 +100,11 @@ export default function UrlShortenerPage() {
 
             <button
               type="submit"
-              className="v0-button w-full h-10 rounded-md text-sm font-medium transition-colors active:scale-[0.98]"
+              className="v0-button w-full rounded-md text-sm font-medium transition-colors active:scale-[0.98]"
               disabled={isLoading}
             >
               {isLoading ? (
-                <div className="h-10 flex items-center justify-center">
+                <div className="flex items-center justify-center">
                   <div className="w-4 h-4 border-2 border-zinc-600 border-t-zinc-200 rounded-full animate-spin"></div>
                 </div>
               ) : (
