@@ -92,3 +92,93 @@
     min-height: 100%;
   }
 }
+
+@layer components {
+    .container {
+        background: var(--card-bg);
+        width: 100%;
+        max-width: 480px;
+        padding: 2rem;
+        border-radius: 5px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        margin: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        margin: 0 0 10px 0;
+        color: var(--text);
+    }
+
+    .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    input[type="url"] {
+        flex: 1;
+        padding: 12px 15px;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        outline: none;
+    }
+
+    input[type="url"]:focus {
+        border-color: var(--primary);
+    }
+
+    button {
+        padding: 12px 24px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: var(--primary-hover);
+    }
+
+    #result {
+        margin-top: 25px;
+        min-height: 20px;
+        font-size: 1.1rem;
+        color: #444;
+        word-break: break-all;
+    }
+
+    #result a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px dashed var(--primary);
+        padding-bottom: 2px;
+        cursor: pointer;
+    }
+
+    #result a:hover {
+        border-bottom-style: solid;
+    }
+
+    @media (max-width: 500px) {
+        .input-group {
+            flex-direction: column;
+        }
+        
+        button {
+            width: 100%;
+        }
+    }
+}
