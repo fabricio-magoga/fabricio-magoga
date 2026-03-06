@@ -343,7 +343,7 @@ export default function ResumePage() {
               <SectionEntry
                 date="2026"
                 title="Portfolio (this website)"
-                href="https://fabriciomagoga.com.br/"
+                href="/url"
               />
             </section>
           </div>
