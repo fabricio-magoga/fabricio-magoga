@@ -24,7 +24,9 @@ function ThemeToggle({
     <button
       onClick={onToggle}
       className={`p-2 rounded-full transition-colors ${
-        isDarkMode ? "hover:bg-white/10" : "hover:bg-black/10"
+        isDarkMode
+          ? "hover:bg-white/10 text-white"
+          : "hover:bg-black/10 text-black"
       }`}
       aria-label="Toggle theme"
     >
@@ -69,7 +71,9 @@ function ShapeSelector({
 
   return (
     <Select value={currentShape} onValueChange={onShapeChange}>
-      <SelectTrigger className="border-0 bg-transparent text-sm p-0 h-auto focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none outline-none ring-0 hover:opacity-70 transition-opacity [&>svg]:hidden">
+      <SelectTrigger
+        className={`border-0 bg-transparent text-sm p-0 h-auto focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:outline-none outline-none ring-0 hover:opacity-70 transition-opacity [&>svg]:hidden ${isDarkMode ? "text-white" : "text-black"}`}
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent className="bg-black border-none text-white">
