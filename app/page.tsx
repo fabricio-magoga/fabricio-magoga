@@ -151,7 +151,7 @@ function FooterLinks() {
     },
     {
       label: "Download CV",
-      href: "/CV_FABRICIO_ALVES_MAGOGA.pdf",
+      href: "/CV_FABRICIO_MAGOGA.pdf",
       external: false,
     },
   ];
