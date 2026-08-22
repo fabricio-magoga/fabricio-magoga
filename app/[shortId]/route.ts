@@ -1,20 +1,18 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 
-const mongoUri = process.env.MONGO_URI;
+const mongoUri = process.env.MONGO_URI ?? '';
 
 if (!mongoUri) {
   throw new Error('Please define the MONGO_URI environment variable inside .env.local');
-}
-
-// It's more efficient to reuse the connection
+}   
 let conn: any = null;
 
 async function dbConnect() {
   if (conn) {
     return conn;
   }
-  conn = await mongoose.connect(mongoUri);
+  conn = await mongoose.connect(mongoUri as string);
   return conn;
 }
 
@@ -25,10 +23,13 @@ const urlSchema = new mongoose.Schema({
 
 const Url = mongoose.models.Url || mongoose.model('Url', urlSchema);
 
-export async function GET(request: Request, { params }: { params: { shortId: string } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ shortId: string }> },
+) {
   try {
     await dbConnect();
-    const { shortId } = params;
+    const { shortId } = await params;
     const url = await Url.findOne({ shortUrl: shortId });
 
     if (!url) {

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import { z } from 'zod';
 
-const mongoUri = process.env.MONGO_URI;
+const mongoUri = process.env.MONGO_URI ?? '';
 
 if (!mongoUri) {
   throw new Error('Please define the MONGO_URI environment variable inside .env.local');
@@ -15,7 +15,7 @@ async function dbConnect() {
   if (conn) {
     return conn;
   }
-  conn = await mongoose.connect(mongoUri);
+  conn = await mongoose.connect(mongoUri as string);
   return conn;
 }
 
