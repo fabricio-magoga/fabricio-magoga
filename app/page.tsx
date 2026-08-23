@@ -177,12 +177,8 @@ function FooterLinks() {
 }
 
 export default function ResumePage() {
-  // Inicializadores que leem do localStorage imediatamente
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window === "undefined") return true;
-    const saved = localStorage.getItem("theme");
-    return saved ? saved === "dark" : true;
-  });
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const [currentShape, setCurrentShape] = useState(() => {
     if (typeof window === "undefined") return "auto";
@@ -198,10 +194,22 @@ export default function ResumePage() {
   const displayShape =
     currentShape === "auto" ? SHAPES[shapeIndex] : currentShape;
 
-  // Effect para salvar tema no localStorage quando mudar
   useEffect(() => {
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
+    const saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      setIsDarkMode(saved === "dark");
+      document.documentElement.dataset.theme = saved;
+    }
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+    const theme = isDarkMode ? "dark" : "light";
+    localStorage.setItem("theme", theme);
+    document.cookie = `theme=${theme}; path=/; max-age=31536000; samesite=lax`;
+    document.documentElement.dataset.theme = theme;
+  }, [isDarkMode, isHydrated]);
 
   // Effect para salvar shape no localStorage quando mudar
   useEffect(() => {
@@ -221,8 +229,8 @@ export default function ResumePage() {
   return (
     <div
       className={`relative flex flex-col md:flex-row ${
-        isDarkMode ? "bg-black" : "bg-white"
-      }`}
+        isHydrated ? "opacity-100" : "opacity-0"
+      } ${isDarkMode ? "bg-black" : "bg-white"}`}
     >
       {/* Dithering shader panel - top on mobile, right side on desktop */}
       {/* Adicionado overflow-hidden para garantir que a animação não vaze */}

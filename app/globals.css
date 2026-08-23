@@ -88,8 +88,14 @@
   }
   html,
   body {
-    @apply bg-black text-foreground;
+    @apply text-foreground;
+    background-color: white;
     min-height: 100%;
+  }
+
+  html[data-theme="dark"],
+  html[data-theme="dark"] body {
+    background-color: black;
   }
 }
 
