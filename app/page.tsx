@@ -343,11 +343,11 @@ export default function ResumePage() {
                 Projects
               </h4>
               <SectionEntry date="2025" title="URL Shortener" href="/url" />
-              <SectionEntry
+              {/* <SectionEntry
                 date="2025"
                 title="Websocket Chat"
                 href="https://magoga-chat.vercel.app/"
-              />
+              /> */}
               <SectionEntry
                 date="2026"
                 title="Portfolio (this website)"
